@@ -1,0 +1,608 @@
+/* =====================================================
+   ROOM THEMES
+   Each room = a distinct visual universe
+===================================================== */
+
+/* -----------------------------------------------------
+   START SCREEN THEME
+----------------------------------------------------- */
+.start-theme {
+  --accent: #6cf2c2;
+  background:
+    radial-gradient(800px 400px at 50% 20%, rgba(108, 242, 194, 0.25), transparent 60%),
+    linear-gradient(180deg, #0a0a0a, #050505);
+}
+
+/* -----------------------------------------------------
+   ROOM 1 — NEON TERMINAL (CYBER GREEN)
+----------------------------------------------------- */
+.room-theme-1 {
+  --accent: #00ff9c;
+  background:
+    linear-gradient(135deg, #001b12, #002b1d),
+    radial-gradient(600px 300px at 80% 20%, rgba(0, 255, 156, 0.25), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   ROOM 2 — ARCADE MAZE (ELECTRIC BLUE)
+----------------------------------------------------- */
+.room-theme-2 {
+  --accent: #4da6ff;
+  background:
+    linear-gradient(135deg, #020b1a, #041d3d),
+    radial-gradient(600px 400px at 20% 80%, rgba(77, 166, 255, 0.25), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   ROOM 3 — RHYTHM CORE (MAGENTA / PINK)
+----------------------------------------------------- */
+.room-theme-3 {
+  --accent: #ff5cf4;
+  background:
+    linear-gradient(135deg, #1a0018, #2b0030),
+    radial-gradient(700px 350px at 50% 50%, rgba(255, 92, 244, 0.3), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   ROOM 4 — OPTICAL ILLUSION (SUNSET ORANGE)
+----------------------------------------------------- */
+.room-theme-4 {
+  --accent: #ff9f43;
+  background:
+    linear-gradient(135deg, #1a0e00, #3a1e00),
+    radial-gradient(700px 350px at 70% 30%, rgba(255, 159, 67, 0.3), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   ROOM 5 — SENSORY CHAMBER (VIOLET)
+----------------------------------------------------- */
+.room-theme-5 {
+  --accent: #a98bff;
+  background:
+    linear-gradient(135deg, #12001a, #1e0033),
+    radial-gradient(600px 400px at 30% 70%, rgba(169, 139, 255, 0.3), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   ROOM 6 — HUMAN KEY (GOLD / FINALE)
+----------------------------------------------------- */
+.room-theme-6 {
+  --accent: #ffd166;
+  background:
+    linear-gradient(135deg, #1a1400, #3a2a00),
+    radial-gradient(800px 400px at 50% 20%, rgba(255, 209, 102, 0.35), transparent 60%);
+}
+
+/* -----------------------------------------------------
+   END SCREEN THEME
+----------------------------------------------------- */
+.end-theme {
+  --accent: #ffffff;
+  background:
+    radial-gradient(900px 500px at 50% 30%, rgba(255,255,255,0.2), transparent 60%),
+    linear-gradient(180deg, #000000, #050505);
+}
+
+/* =====================================================
+   COMMON ROOM ELEMENTS (FUTURE PUZZLES)
+===================================================== */
+
+.room-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+
+.room-instruction {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Accent glow utility */
+.accent-glow {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(255,255,255,0.25);
+}
+/* =====================================================
+   ROOM 1 — NEON PULSE GATE
+===================================================== */
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 90px);
+  gap: 18px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.pulse-tile {
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.12),
+    0 0 20px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.pulse-tile.active {
+  background: var(--accent);
+  box-shadow:
+    0 0 30px var(--accent),
+    inset 0 0 0 2px rgba(255,255,255,0.5);
+  transform: scale(1.05);
+}
+
+.pulse-tile.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+/* =====================================================
+   ROOM 2 — CHROMATIC DRIFT MAZE
+===================================================== */
+
+.maze-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.maze {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,0.12),
+    0 0 40px rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent);
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+.orb.fail {
+  background: #ff4d4d;
+  box-shadow: 0 0 20px #ff4d4d;
+  transform: scale(0.6);
+}
+
+.goal {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  right: 16px;
+  bottom: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  box-shadow: 0 0 30px var(--accent);
+}
+/* =====================================================
+   ROOM 3 — SPECTRUM SYNC
+===================================================== */
+
+.rhythm-core {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), transparent 65%);
+  box-shadow: 0 0 40px var(--accent);
+  margin: 40px auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rhythm-core.pulse {
+  transform: scale(1.25);
+  box-shadow:
+    0 0 80px var(--accent),
+    0 0 120px rgba(255,255,255,0.2);
+}
+/* ============================
+   LOGIC MATRIX (ROOM 4)
+============================ */
+
+.logic-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  grid-template-rows: repeat(4, 80px);
+  gap: 14px;
+  padding: 26px;
+  border-radius: 22px;
+  background: rgba(120, 160, 255, 0.08);
+  box-shadow: 0 0 40px rgba(120, 160, 255, 0.3);
+  margin: 0 auto;
+}
+
+.logic-cell {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  font-size: 38px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.logic-cell:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.logic-cell.locked {
+  background: rgba(255, 255, 255, 0.18);
+  cursor: not-allowed;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+}
+
+.logic-grid.solved {
+  box-shadow: 0 0 60px rgba(80, 255, 160, 0.9);
+}
+
+/* ================================
+   ROOM 5 — SAVE YOUR ESCAPE
+   (MATCHES SPECTRUM SYNC)
+================================ */
+
+#room-5 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Wrapper for vertical rhythm */
+.room5-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------- TITLE (EXACT STYLE) ---------- */
+.room5-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  margin-bottom: 28px;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-shadow:
+    0 0 18px rgba(255,255,255,0.25),
+    0 0 48px var(--accent);
+}
+
+/* ---------- CARD ---------- */
+.room5-card {
+  width: 420px;
+  margin: 0 auto;
+  padding: 34px 30px 30px;
+  border-radius: 22px;
+
+  background: rgba(255,255,255,0.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 0 60px rgba(0,0,0,0.45);
+
+  backdrop-filter: blur(14px);
+}
+
+/* ---------- SUBTITLE ---------- */
+.room5-subtitle {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 22px;
+}
+
+.room5-subtitle span {
+  color: var(--accent);
+}
+
+/* ---------- INPUTS ---------- */
+.room5-input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+
+  border-radius: 14px;
+  border: none;
+  outline: none;
+
+  font-size: 1rem;
+  color: #ffffff;
+  background: rgba(255,255,255,0.08);
+}
+
+.room5-input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+/* ---------- CONSTRAINT BOX ---------- */
+.constraint-box {
+  min-height: 46px;
+  margin: 14px 0 18px;
+  padding: 10px 14px;
+
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: rgba(255,200,220,0.95);
+  background: rgba(255,60,120,0.15);
+
+  box-shadow: 0 0 18px rgba(255,60,120,0.35);
+}
+
+/* ---------- BUTTON ---------- */
+.room5-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #000;
+  background: var(--accent);
+  cursor: pointer;
+
+  box-shadow: 0 0 30px var(--accent);
+}
+
+/* ---------- FORGOT ---------- */
+.forgot-btn {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+}
+
+/* ---------- SHAKE ---------- */
+.shake {
+  animation: room5Shake 0.45s;
+  box-shadow: 0 0 28px rgba(255,60,120,0.8);
+}
+
+@keyframes room5Shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* ---------- SAVAGE POPUP ---------- */
+.savage-popup {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+}
+
+.savage-popup div {
+  padding: 28px 32px;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  color: var(--accent);
+  background: rgba(0,0,0,0.9);
+  box-shadow: 0 0 40px var(--accent);
+}
+.maze {
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border-radius: 20px;
+}
+
+.wall {
+  position: absolute;
+  background: rgba(255,255,255,0.35);
+  border-radius: 4px;
+}
+
+.orb {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  pointer-events: none;
+}
+
+.goal {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+}
+/* =====================================================
+   ROOM 6 — FINAL NUMBER LOCK
+   Competitive • Spy Terminal • Lilac Accent
+===================================================== */
+
+/* Wrapper — safe, isolated */
+.room6-wrapper {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 28px;
+  padding: 32px;
+  text-align: center;
+}
+
+/* Title */
+.room6-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+
+  color: var(--accent);
+  text-shadow:
+    0 0 20px rgba(198,183,255,0.45),
+    0 0 40px rgba(198,183,255,0.25);
+}
+
+/* Briefing text */
+.room6-brief {
+  max-width: 520px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Lock container */
+.room6-lock {
+  display: flex;
+  gap: 18px;
+  margin: 24px 0 10px;
+}
+
+/* Individual 4-digit input */
+.lock-input {
+  width: 84px;
+  height: 72px;
+
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+
+  border-radius: 18px;
+  border: none;
+  outline: none;
+
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.18),
+    0 0 26px rgba(0,0,0,0.45);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+/* Focused input */
+.lock-input:focus {
+  background: rgba(255,255,255,0.14);
+  box-shadow:
+    0 0 28px var(--accent),
+    inset 0 0 0 2px rgba(255,255,255,0.5);
+  transform: scale(1.05);
+}
+
+/* Submit button */
+.room6-submit {
+  margin-top: 14px;
+  padding: 14px 34px;
+
+  border-radius: 18px;
+  border: none;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: #1a132b;
+  background: linear-gradient(
+    135deg,
+    #d7caff,
+    #a98bff
+  );
+
+  cursor: pointer;
+
+  box-shadow:
+    0 0 26px rgba(169,139,255,0.45),
+    0 10px 30px rgba(0,0,0,0.45);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Button hover */
+.room6-submit:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 36px rgba(169,139,255,0.65),
+    0 14px 36px rgba(0,0,0,0.6);
+}
+
+/* Feedback text */
+.room6-feedback {
+  min-height: 26px;
+  font-size: 0.95rem;
+  margin-top: 6px;
+  color: #ff7b7b;
+}
+
+.room6-feedback.success {
+  color: #6cf2c2;
+}
+
+/* Shake animation (local only) */
+.room6-wrapper.shake {
+  animation: room6Shake 0.45s;
+}
+
+@keyframes room6Shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+/* Mobile optimization */
+@media (max-width: 520px) {
+  .room6-lock {
+    gap: 12px;
+  }
+
+  .lock-input {
+    width: 72px;
+    height: 64px;
+    font-size: 1.25rem;
+  }
+}

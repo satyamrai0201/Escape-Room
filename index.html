@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- =====================================================
+       META / PERFORMANCE / ACCESSIBILITY
+  ====================================================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="description"
+        content="Vertex Escape — a colourful, interactive tech escape room experience." />
+
+  <title>Vertex Escape — Tech Odyssey</title>
+
+  <!-- =====================================================
+       PRELOAD FONTS (FAST, APPLE-LIKE)
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- We’ll use these later in CSS -->
+  <!-- Inter = clean Apple-like UI -->
+  <!-- Space Grotesk = playful tech -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- =====================================================
+       STYLES
+  ====================================================== -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/rooms.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       ROOT GAME CONTAINER
+       (acts like a native app window)
+  ====================================================== -->
+  <div id="game-root" role="application" aria-label="Vertex Escape Game">
+
+    <!-- =====================================================
+         BACKGROUND LAYERS (AMBIENCE)
+         Used for gradients, noise, motion blur
+    ====================================================== -->
+    <div class="bg-layer bg-gradient"></div>
+    <div class="bg-layer bg-noise"></div>
+
+    <!-- =====================================================
+         START SCREEN (CINEMATIC)
+    ====================================================== -->
+    <section class="screen screen-active start-theme"
+             id="start-screen"
+             aria-hidden="false">
+
+      <div class="center-wrapper">
+
+        <div class="logo-block">
+          <span class="logo-mark">◆</span>
+          <span class="logo-text">VERTEX</span>
+        </div>
+
+        <h1 class="game-title">
+          ESCAPE
+        </h1>
+
+        <p class="game-subtitle">
+          A Tech Odyssey
+        </p>
+
+        <button class="primary-btn"
+                id="start-btn"
+                aria-label="Start the escape room">
+          ENTER THE SYSTEM
+        </button>
+
+        <p class="footnote">
+          Designed & Presented by <strong>Vertex Tech Club</strong>
+        </p>
+
+      </div>
+
+      <!-- subtle animated cue -->
+      <div class="scroll-indicator" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         ROOM SCREENS
+         (Each room = a full scene, not a card)
+    ====================================================== -->
+
+    <section class="screen room-theme-1" id="room-1" aria-hidden="true"></section>
+    <section class="screen room-theme-2" id="room-2" aria-hidden="true"></section>
+    <section class="screen room-theme-3" id="room-3" aria-hidden="true"></section>
+    <section class="screen room-theme-4" id="room-4" aria-hidden="true"></section>
+    <section class="screen room-theme-5" id="room-5" aria-hidden="true"></section>
+    <section class="screen room-theme-6" id="room-6" aria-hidden="true"></section>
+
+    <!-- =====================================================
+         END SCREEN (CELEBRATORY, CLEAN)
+    ====================================================== -->
+    <section class="screen end-theme"
+             id="end-screen"
+             aria-hidden="true">
+
+      <div class="center-wrapper">
+
+        <h1 class="game-title">
+          SYSTEM BREACHED
+        </h1>
+
+        <p class="game-subtitle">
+          You Escaped
+        </p>
+
+        <div class="end-meta">
+          <span class="badge">VERTEX TECH CLUB</span>
+          <span class="badge">2026</span>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- =====================================================
+       SCRIPTS (ORDER MATTERS)
+       No inline hacks. Clean architecture.
+  ====================================================== -->
+ 
+  <script src="js/engine.js"></script>
+  <script src="js/rooms.js"></script>
+
+</body>
+</html>

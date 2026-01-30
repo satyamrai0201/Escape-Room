@@ -1,0 +1,346 @@
+/* =====================================================
+   BASE RESET & VARIABLES
+   Apple-level cleanliness
+===================================================== */
+
+:root {
+  /* Typography */
+  --font-ui: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+
+  /* Core Colors */
+  --white: #ffffff;
+  --black: #0a0a0a;
+  --gray-1: #1a1a1a;
+  --gray-2: #2a2a2a;
+  --gray-3: #9aa0a6;
+
+  /* Accent (will be overridden per room) */
+  --accent: #6cf2c2;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Timings */
+  --fast: 0.25s;
+  --medium: 0.5s;
+  --slow: 0.8s;
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-ui);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* =====================================================
+   ROOT GAME CONTAINER
+===================================================== */
+
+#game-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* =====================================================
+   BACKGROUND LAYERS (AMBIENT DEPTH)
+===================================================== */
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-gradient {
+  background:
+    radial-gradient(1200px 600px at 10% 10%, rgba(108, 242, 194, 0.12), transparent 60%),
+    radial-gradient(800px 400px at 90% 20%, rgba(138, 99, 255, 0.15), transparent 60%),
+    linear-gradient(180deg, #0a0a0a, #050505);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  opacity: 0.25;
+}
+
+/* =====================================================
+   SCREEN SYSTEM (SCENE-BASED)
+===================================================== */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(1.02);
+  transition:
+    opacity var(--medium) var(--ease-out),
+    transform var(--medium) var(--ease-out);
+  z-index: 1;
+}
+
+.screen-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+/* =====================================================
+   CENTERED CONTENT
+===================================================== */
+
+.center-wrapper {
+  text-align: center;
+  padding: 32px;
+  max-width: 720px;
+}
+
+/* =====================================================
+   TYPOGRAPHY
+===================================================== */
+
+.game-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.game-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  color: var(--gray-3);
+  margin-bottom: 32px;
+}
+
+.logo-block {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.logo-mark {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.logo-text {
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-btn {
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  padding: 16px 36px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--black);
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    #ffffff
+  );
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    transform var(--fast) var(--ease-out),
+    box-shadow var(--fast) var(--ease-out);
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+/* =====================================================
+   FOOTNOTES / META
+===================================================== */
+
+.footnote {
+  margin-top: 36px;
+  font-size: 0.8rem;
+  color: var(--gray-3);
+}
+
+/* =====================================================
+   END SCREEN META
+===================================================== */
+
+.end-meta {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--gray-3);
+}
+
+/* =====================================================
+   SCROLL INDICATOR (SUBTLE MOTION)
+===================================================== */
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 20px;
+  height: 32px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 999px;
+  position: relative;
+}
+
+.scroll-indicator span::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--white);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: scrollDot 1.6s infinite;
+}
+
+@keyframes scrollDot {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 10px); }
+}
+/* =====================================================
+   MICRO-INTERACTION POLISH
+===================================================== */
+
+/* Subtle fade + lift on room content */
+.screen .center-wrapper {
+  animation: sceneEnter 0.8s var(--ease-out);
+}
+
+@keyframes sceneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Soft press feedback everywhere */
+button,
+.pulse-tile,
+.signal,
+.glyph {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+.pulse-tile:active,
+.signal:active,
+.glyph:active {
+  transform: scale(0.96);
+}
+
+/* Cursor refinement */
+button,
+.pulse-tile,
+.signal,
+.glyph {
+  cursor: pointer;
+}
+
+/* Gentle ambient breathing */
+@keyframes breathe {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+.accent-glow {
+  animation: breathe 2.5s ease-in-out infinite alternate;
+}
+/* =====================================================
+   SUCCESS / FAILURE FLASH
+===================================================== */
+
+#game-root.success-flash::after,
+#game-root.failure-flash::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+#game-root.success-flash::after {
+  background: rgba(108, 242, 194, 0.15);
+  animation: flash 0.4s ease;
+}
+
+#game-root.failure-flash::after {
+  background: rgba(255, 77, 77, 0.15);
+  animation: flash 0.4s ease;
+}
+
+@keyframes flash {
+  from { opacity: 0; }
+  50% { opacity: 1; }
+  to { opacity: 0; }
+}
